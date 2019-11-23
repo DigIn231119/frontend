@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, StyleSheet, View } from 'react-native';
+import { Button, StyleSheet, View, Text, TextInput } from 'react-native';
 
 export default class ButtonBasics extends Component {
   _onPressButton() {
@@ -8,25 +8,28 @@ export default class ButtonBasics extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View>
+        <View style = {{padding: 10}}>
+          <TextInput 
+          style = {{height: 40}}
+          placeholder='Email or Username'
+          // value={this.state.text}
+          />
+        </View>
+
+        <View style = {{padding: 10}}>
+          <TextInput 
+          style = {{height: 40}}
+          placeholder='Password'
+          // value={this.state.text}
+          />
+        </View>
+
         <View style={styles.buttonContainer}>
           <Button
             onPress={this._onPressButton}
             title='press me'
-          />
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button
-            onPress={this._onPressButton}
-            title='press me'
-            color='#841584'
-          />
-        </View>
-        <View style={styles.alternativeLayoutButtonContainer}>
-          <Button
-            onPress={this._onPressButton}
-            title='OK!'
-            color='#841584'
+            color='#841584' //TODO: coolour scheme
           />
         </View>
       </View>
@@ -34,7 +37,7 @@ export default class ButtonBasics extends Component {
   }
 }
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({ //TODO: center button and text fields
   container: {
     flex: 1,
     justifyContent: 'center',
