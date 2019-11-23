@@ -1,53 +1,50 @@
-import React, { Component } from 'react';
-import { Button, StyleSheet, View, Text, TextInput } from 'react-native';
+import React from 'react';
+import { View, Text } from 'react-native';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
-export default class ButtonBasics extends Component {
-  _onPressButton() {
-    alert('You tapped the button!')
-  }
-
+class HomeScreen extends React.Component {
   render() {
     return (
-      <View>
-        <View style = {{padding: 10}}>
-          <TextInput 
-          style = {{height: 40}}
-          placeholder='Email or Username'
-          // value={this.state.text}
-          />
-        </View>
-
-        <View style = {{padding: 10}}>
-          <TextInput 
-          style = {{height: 40}}
-          placeholder='Password'
-          // value={this.state.text}
-          />
-        </View>
-
-        <View style={styles.buttonContainer}>
-          <Button
-            onPress={this._onPressButton}
-            title='press me'
-            color='#841584' //TODO: coolour scheme
-          />
-        </View>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>Home Screen</Text>
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({ //TODO: center button and text fields
-  container: {
-    flex: 1,
-    justifyContent: 'center',
+const AppNavigator = createStackNavigator({
+  Home: {
+    screen: HomeScreen,
   },
-  buttonContainer: {
-    margin: 20
-  },
-  alternativeLayoutButtonContainer: {
-    margin:20,
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  }
 });
+
+export default createAppContainer(AppNavigator);
+
+
+// class HomeScreen extends React.Component {
+//   render() {
+//     return (
+//       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+//         <Text>Home!</Text>
+//       </View>
+//     );
+//   }
+// }
+
+// class SettingsScreen extends React.Component {
+//   render() {
+//     return (
+//       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+//         <Text>Settings!</Text>
+//       </View>
+//     );
+//   }
+// }
+
+// const TabNavigator = createBottomTabNavigator({
+//   Home: HomeScreen,
+//   Settings: SettingsScreen,
+// });
+
+// export default createAppContainer(TabNavigator);
