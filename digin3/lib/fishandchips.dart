@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'checkout.dart';
 
-class Lasagna extends StatefulWidget{
-  LasagnaState createState() => LasagnaState();
+class FaC extends StatefulWidget{
+  FaCState createState() => FaCState();
 }
 
-class LasagnaState extends State<Lasagna> {
+class FaCState extends State<FaC> {
 
   List checkout = [];
 
@@ -21,7 +21,7 @@ class LasagnaState extends State<Lasagna> {
         children: <Widget>[
         Container(
           height: MediaQuery.of(context).size.height/3,
-          child: Image.asset('Lasagna.jfif', fit: BoxFit.cover)
+          child: Image.asset('FaC.jpg', fit: BoxFit.cover)
         ),
         Expanded(
           child: Container(
@@ -30,7 +30,7 @@ class LasagnaState extends State<Lasagna> {
                 Row(
                   children: <Widget>[
                     Container(
-                      child: Text('Lasagna', style: TextStyle(fontSize: 40.0))
+                      child: Text('Fish and Chips', style: TextStyle(fontSize: 40.0))
                     ),
                   ],
                 ),
@@ -39,20 +39,20 @@ class LasagnaState extends State<Lasagna> {
                    children: <Widget>[
                      FlatButton(
                           child: Text('ADD',style: TextStyle(fontSize: 20), ),
-                          onPressed:() => checkout.add('lasagna'),),
+                          onPressed:() => checkout.add('FishandChips'),),
                    ],
                  ),
                 ListTile(
-                  title: Text('Quantity: 5')
+                  title: Text('Quantity: 2')
                 ),
                 ListTile(
-                  title: Text('Available at: Manchester, UK')
+                  title: Text('Available at: Liverpool, UK')
                 ),
                 ListTile(
-                  title: Text('Description:\n\nA lovely homemade lasagna, made with local ingredients.')
+                  title: Text('Description:\n\nLovely homemade Fish and Chips, made with local ingredients.')
                 ),
                 ListTile(
-                  title: Text('\n\nPrice: €5', style: TextStyle(fontSize: 40),)
+                  title: Text('\n\nPrice: €4,20', style: TextStyle(fontSize: 40),)
                 )
               ],
             ),
