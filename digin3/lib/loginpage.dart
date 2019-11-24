@@ -11,9 +11,13 @@ class LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xff7d9b09),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          Container(
+            child: Image.asset('logo.png'), //TODO: logo transparent bg
+          ),
           Form(
             key: _formKey,
             child: Column(
@@ -53,9 +57,15 @@ class LoginState extends State<Login> {
                   width: 350,
                       child: RaisedButton(
                       onPressed: _login,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0)
+                      ),
                       child: Text('Log In'),
                     ),
                 ),
+                FlatButton(
+                  child: Text('Sign Up?', style: TextStyle(fontSize: 12),),
+                )
               ],
             )
           )
@@ -69,7 +79,7 @@ class LoginState extends State<Login> {
     } else if (_email == 'test') {
       Navigator.pushNamed(context, '/test');
     } else {
-      Navigator.pushNamed(context, '/customer');
+      Navigator.pushNamed(context, '/home');
     }
   }
 }
