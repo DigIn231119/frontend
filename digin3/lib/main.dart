@@ -7,6 +7,8 @@ import 'test2.dart';
 import 'lasagna.dart';
 import 'signup.dart';
 import 'checkout.dart';
+import 'fishandchips.dart';
+import 'ice.dart';
 
 void main() => runApp(MyApp());
 
@@ -23,7 +25,9 @@ class MyApp extends StatelessWidget {
           '/test2': (context) => Test2(),
           '/lasagna' : (context) => Lasagna(),
           '/signup': (context) => SignUp(),
-          // '/checkout': (context) => Checkout(),
+          '/FaC': (context) => FaC(),
+          '/ice': (context) => Ice(),
+          '/checkout': (context) => Checkout(),
         }
     );
   }

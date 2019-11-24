@@ -7,17 +7,23 @@ class Customer extends StatefulWidget {
 class CustomerState extends State<Customer> with TickerProviderStateMixin {
 
   TabController controller;
-  int listLength = 0;
+  int listLength = 4;
   final _formKey = GlobalKey<FormState>();
+
+  List tileImages = ['Lasagna.jfif', 'burritos.jpg', 'sushi.jpg', 'FaC.jpg'];
+  List tileNames = ['Lasagna', 'Burritos', 'Sushi', 'Fish and Chips'];
+  List tileLocations = ['Manchester', 'London', 'Dublin', 'Liverpool'];
+  List cookNames = ['Mary', 'Jeffrey', 'Aron', 'Jack'];
+
   
 
   TextEditingController nameController = TextEditingController();
   TextEditingController cookController = TextEditingController();
   TextEditingController locationController = TextEditingController();
 
-  List tileNames = [];
+  // List tileNames = [];
   List tileCooks = [];
-  List tileLocations = [];
+  // List tileLocations = [];
 
   String name;
   String location;
@@ -57,7 +63,7 @@ class CustomerState extends State<Customer> with TickerProviderStateMixin {
       ),
       body: ListView.builder(
         itemCount: this.listLength,
-        itemBuilder: (context, index) => _Tile(name: tileNames[index], cook:tileCooks[index], location: tileLocations[index])
+        itemBuilder: (context, index) => _Tile(image: tileImages[index] ,name: tileNames[index], cook: cookNames[index], location: tileLocations[index])
       ),
        drawer: Drawer(
         child: ListView(
@@ -239,8 +245,9 @@ class _Tile extends StatefulWidget{
   String cook;
   String location;
   int rating;
+  String image;
 
-  _Tile({Key key, this.name, this.cook, this.location, this.rating}) : super(key: key);
+  _Tile({Key key, this.name, this.cook, this.location, this.rating, this.image}) : super(key: key);
 
   @override
   _TileState createState() => _TileState();
@@ -254,7 +261,7 @@ class _TileState extends State<_Tile> {
       selectedColor: Colors.white,
           child: ListTile(
         onTap: _showDish,
-        leading: Image.asset('Lasagna.jfif'),
+        leading: Image.asset(widget.image),
         title: Text(widget.name),
         subtitle: Column(
           children: <Widget>[
@@ -268,7 +275,7 @@ class _TileState extends State<_Tile> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Text('${widget.rating.toString()}', textAlign: TextAlign.left),
+                // Text('${widget.rating.toString()}', textAlign: TextAlign.left),
               ],
             )
           ],

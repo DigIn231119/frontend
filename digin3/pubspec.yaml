@@ -42,6 +42,10 @@ flutter:
     - italian.png
     - indian.jpg
     - japanese.jpg
+    - sushi.jpg
+    - burritos.jpg
+    - ice.png
+    - FaC.jpg
 
 
   # The following line ensures that the Material Icons font is
