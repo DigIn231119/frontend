@@ -75,12 +75,14 @@ class LoginState extends State<Login> {
   }
 
   void _login() {
+    if(_formKey.currentState.validate()){
     if(_email == 'homecook'){
       Navigator.pushNamed(context, '/homecook');
     } else if (_email == 'test') {
       Navigator.pushNamed(context, '/test');
     } else {
       Navigator.pushNamed(context, '/home');
+    }
     }
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dish.dart';
 
 class Customer extends StatefulWidget {
   CustomerState createState() => CustomerState();
@@ -9,7 +8,8 @@ class CustomerState extends State<Customer> with TickerProviderStateMixin {
 
   TabController controller;
   int listLength = 0;
-  final GlobalKey _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
+  
 
   TextEditingController nameController = TextEditingController();
   TextEditingController cookController = TextEditingController();
@@ -19,10 +19,11 @@ class CustomerState extends State<Customer> with TickerProviderStateMixin {
   List tileCooks = [];
   List tileLocations = [];
 
-  String name = '1';
-  String location = '2';
-  String cookname = '3';
-  String time = '4';
+  String name;
+  String location;
+  String cookname;
+  String time;
+  String quanity;
 
   // @override 
   // bool get wantKeepAlive => true;
@@ -37,6 +38,11 @@ class CustomerState extends State<Customer> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.shopping_basket),
+        backgroundColor: Color(0xff7d9b09),
+        onPressed: _showCheckout,
+      ),
       appBar: AppBar(
         backgroundColor: Color(0xff7d9b09),
       //     bottom: TabBar(
@@ -51,7 +57,7 @@ class CustomerState extends State<Customer> with TickerProviderStateMixin {
       ),
       body: ListView.builder(
         itemCount: this.listLength,
-        itemBuilder: (context, index) => _Tile(name: tileNames[index], cook:tileCooks[index], location: tileLocations[index], route: Dish()),
+        itemBuilder: (context, index) => _Tile(name: tileNames[index], cook:tileCooks[index], location: tileLocations[index])
       ),
        drawer: Drawer(
         child: ListView(
@@ -145,20 +151,20 @@ class CustomerState extends State<Customer> with TickerProviderStateMixin {
                       Padding(
                         padding: EdgeInsets.all(8.0),
                         child: TextFormField(
-                          controller: cookController,
                           decoration: InputDecoration(labelText: 'Quanity'),
                           validator: (input) {
                             if (input.isEmpty) {
                               return 'Enter a value';
                             }
                           },
-                          onSaved: (input) => cookname = input,
+                          onSaved: (input) => quanity = input,
+                          keyboardType: TextInputType.number,
                         ),
+                        
                       ),
                       Padding(
                         padding: EdgeInsets.all(8.0),
                         child: TextFormField(
-                          controller: cookController,
                           decoration: InputDecoration(labelText: 'Description'),
                           validator: (input) {
                             if (input.isEmpty) {
@@ -171,8 +177,9 @@ class CustomerState extends State<Customer> with TickerProviderStateMixin {
                       Padding(
                         padding: EdgeInsets.all(8.0),
                         child: TextFormField(
-                          decoration: InputDecoration(labelText: 'Time'),
-                          // onSaved: (input) => time = input,
+                          decoration: InputDecoration(labelText: 'Time(hh:mm) & Date(dd/mm/yy)'),
+                          keyboardType: TextInputType.datetime,
+                          onSaved: (input) => time = input,
                         ),
                       ),
                       Padding(
@@ -181,7 +188,9 @@ class CustomerState extends State<Customer> with TickerProviderStateMixin {
                           child: Text('Create'),
                           onPressed: () {
                             // Navigator.pushNamed(context, '/customer');
+                            if(_formKey.currentState.validate()) {
                             _addItem();
+                            }
                           }
                         )
                       )
@@ -218,6 +227,11 @@ class CustomerState extends State<Customer> with TickerProviderStateMixin {
     tileLocations.add(locationController.text);
   }
 
+  
+void _showCheckout() {
+  Navigator.pushReplacementNamed(context, '/checkout');
+}
+
 }
 
 class _Tile extends StatefulWidget{
@@ -225,9 +239,8 @@ class _Tile extends StatefulWidget{
   String cook;
   String location;
   int rating;
-  Dish route;
 
-  _Tile({Key key, this.name, this.cook, this.location, this.rating, this.route}) : super(key: key);
+  _Tile({Key key, this.name, this.cook, this.location, this.rating}) : super(key: key);
 
   @override
   _TileState createState() => _TileState();
@@ -265,7 +278,6 @@ class _TileState extends State<_Tile> {
     );
   }
   void _showDish() {
-    Navigator.pushNamed(context, '/dish'); //TODO make customizable
+    Navigator.pushNamed(context, '/lasagna'); //TODO make customizable
 }
-
 }
