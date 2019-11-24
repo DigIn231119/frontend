@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class Customer extends StatefulWidget {
   CustomerState createState() => CustomerState();
@@ -24,7 +27,7 @@ class CustomerState extends State<Customer> with TickerProviderStateMixin {
   String cookname = '3';
   String description;
   int quantity;
-  DateTime readyTime;
+  String readyTime;
 
   // @override 
   // bool get wantKeepAlive => true;
@@ -154,11 +157,17 @@ class CustomerState extends State<Customer> with TickerProviderStateMixin {
                         child: TextFormField(
                           decoration: InputDecoration(labelText: 'Quanity'),
                           validator: (input) {
+                            
                             if (input.isEmpty) {
                               return 'Enter a value';
                             }
                           },
-                          onSaved: (input) => quanity = input,
+                          onSaved: (input) {
+                            quantity = int.tryParse(input);
+                            if(quantity == null) {
+                              return "Enter a number";
+                            }
+                          },
                           keyboardType: TextInputType.number,
                         ),
                         
@@ -172,15 +181,7 @@ class CustomerState extends State<Customer> with TickerProviderStateMixin {
                               return 'Enter a value';
                             }
                           },
-                          onSaved: (input) => cookname = input,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: TextFormField(
-                          decoration: InputDecoration(labelText: 'Time(hh:mm) & Date(dd/mm/yy)'),
-                          keyboardType: TextInputType.datetime,
-                          onSaved: (input) => time = input,
+                          onSaved: (input) => description = input,
                         ),
                       ),
                       Padding(
@@ -190,7 +191,8 @@ class CustomerState extends State<Customer> with TickerProviderStateMixin {
                           onPressed: () {
                             // Navigator.pushNamed(context, '/customer');
                             if(_formKey.currentState.validate()) {
-                            _addItem();
+                              _formKey.currentState.save();
+                              _addItem();
                             }
                           }
                         )
@@ -219,9 +221,31 @@ class CustomerState extends State<Customer> with TickerProviderStateMixin {
     );
   }
 
-  void _addItem(){
+  void _addItem() {
+    // TODO validate
+
+    DateTime now = DateTime.now();
+
+    String requestJsonString = jsonEncode({
+      'name': name,
+      'city': location,
+      'description': description,
+      'quantity': quantity,
+      'readytime': "${now.year}-${now.month}-${now.day} ${now.hour}:${now.minute}:00",
+      'cookemail': cookname // TODO change this to logged in user's email later
+    });
+
+    // TODO store url in constant
+    http.post(
+      'https://digin-backend.appspot.com/api/create',
+      headers: {'Content-Type': 'application/json'},
+      body: requestJsonString
+    ).then((response) {
+      print(response.statusCode);
+    });
+
     setState(() {
-      this.listLength = this.listLength +1;
+      this.listLength = this.listLength + 1;
     });
     tileNames.add(nameController.text);
     tileCooks.add(cookController.text);
@@ -229,9 +253,9 @@ class CustomerState extends State<Customer> with TickerProviderStateMixin {
   }
 
   
-void _showCheckout() {
-  Navigator.pushReplacementNamed(context, '/checkout');
-}
+  void _showCheckout() {
+    Navigator.pushReplacementNamed(context, '/checkout');
+  }
 
 }
 
