@@ -22,7 +22,9 @@ class CustomerState extends State<Customer> with TickerProviderStateMixin {
   String name = '1';
   String location = '2';
   String cookname = '3';
-  String time = '4';
+  String description;
+  int quantity;
+  DateTime readyTime;
 
   // @override 
   // bool get wantKeepAlive => true;
@@ -93,102 +95,112 @@ class CustomerState extends State<Customer> with TickerProviderStateMixin {
                 FlatButton(
                   child: Text('Add Listing', style: TextStyle(color: Colors.black, fontSize: 20),),
                   onPressed: () {
-                   showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                content: Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: TextFormField(
-                          controller: nameController,
-                          decoration: InputDecoration(labelText: 'Dish Name'),
-                          validator: (input) {
-                            if (input.isEmpty) {
-                              return 'Enter a value';
-                            }
-                          },
-                          onSaved: (input) => name = input,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: TextFormField(
-                          controller: cookController,
-                          decoration: InputDecoration(labelText: 'Cook Name'),
-                          validator: (input) {
-                            if (input.isEmpty) {
-                              return 'Enter a value';
-                            }
-                          },
-                          onSaved: (input) => cookname = input,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: TextFormField(
-                          controller: locationController,
-                          decoration: InputDecoration(labelText: 'Location'),
-                          validator: (input) {
-                            if (input.isEmpty) {
-                              return 'Enter a value';
-                            }
-                          },
-                          onSaved: (input) => location = input,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: TextFormField(
-                          controller: cookController,
-                          decoration: InputDecoration(labelText: 'Quanity'),
-                          validator: (input) {
-                            if (input.isEmpty) {
-                              return 'Enter a value';
-                            }
-                          },
-                          onSaved: (input) => cookname = input,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: TextFormField(
-                          controller: cookController,
-                          decoration: InputDecoration(labelText: 'Description'),
-                          validator: (input) {
-                            if (input.isEmpty) {
-                              return 'Enter a value';
-                            }
-                          },
-                          onSaved: (input) => cookname = input,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: TextFormField(
-                          decoration: InputDecoration(labelText: 'Time'),
-                          // onSaved: (input) => time = input,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: FlatButton(
-                          child: Text('Create'),
-                          onPressed: () {
-                            // Navigator.pushNamed(context, '/customer');
-                            _addItem();
-                          }
-                        )
-                      )
-                    ],
-                  )
-                )
-              );
+                    DateTime now = DateTime.now();
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          content: Form(
+                            key: _formKey,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: TextFormField(
+                                    controller: nameController,
+                                    decoration: InputDecoration(labelText: 'Dish Name'),
+                                    validator: (input) {
+                                      if (input.isEmpty) {
+                                        return 'Enter a value';
+                                      }
+                                    },
+                                    onSaved: (input) => name = input,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: TextFormField(
+                                    controller: cookController,
+                                    decoration: InputDecoration(labelText: 'Cook Name'),
+                                    validator: (input) {
+                                      if (input.isEmpty) {
+                                        return 'Enter a value';
+                                      }
+                                    },
+                                    onSaved: (input) => cookname = input,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: TextFormField(
+                                    controller: locationController,
+                                    decoration: InputDecoration(labelText: 'Location'),
+                                    validator: (input) {
+                                      if (input.isEmpty) {
+                                        return 'Enter a value';
+                                      }
+                                    },
+                                    onSaved: (input) => location = input,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: TextFormField(
+                                    controller: cookController,
+                                    decoration: InputDecoration(labelText: 'Quanity'),
+                                    validator: (input) {
+                                      if (input.isEmpty) {
+                                        return 'Enter a value';
+                                      }
+                                    },
+                                    onSaved: (input) => cookname = input,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: TextFormField(
+                                    controller: cookController,
+                                    decoration: InputDecoration(labelText: 'Description'),
+                                    validator: (input) {
+                                      if (input.isEmpty) {
+                                        return 'Enter a value';
+                                      }
+                                    },
+                                    onSaved: (input) => cookname = input,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: TextFormField(
+                                    decoration: InputDecoration(labelText: 'Time'),
+                                    // onSaved: (input) => time = input,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: FlatButton(
+                                    child: Text('Create'),
+                                    onPressed: () {
+                                      // Navigator.pushNamed(context, '/customer');
+                                      _addItem();
+                                    }
+                                  )
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Text(now.toString()),
+                                    RaisedButton(
+                                      onPressed: () => showDatePicker(context: context, initialDate: now, firstDate: now),
+                                      child: Text(""),
+                                    )
+                                ],)
+                                
+                              ],
+                            )
+                          )
+                        );
                       }
                     );
                   }
