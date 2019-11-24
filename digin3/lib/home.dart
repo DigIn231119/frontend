@@ -26,7 +26,6 @@ class HomeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Form(
-              key: _formKey,
               child:
               Column(
                 children: <Widget>[
@@ -209,6 +208,19 @@ class HomeState extends State<Home> {
                             }
                           },
                           // onSaved: (input) => location = input,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          // controller: cookController,
+                          decoration: InputDecoration(labelText: ''),
+                          validator: (input) {
+                            if (input.isEmpty) {
+                              return 'Enter a value';
+                            }
+                          },
+                          // onSaved: (input) => cookname = input,
                         ),
                       ),
                       Padding(

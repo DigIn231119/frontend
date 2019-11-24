@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 
-class Dish extends StatefulWidget{
-  DishState createState() => DishState();
+class Lasagna extends StatefulWidget{
+  LasagnaState createState() => LasagnaState();
 }
 
-class DishState extends State<Dish> {
+class LasagnaState extends State<Lasagna> {
   @override
   Widget build(BuildContext build) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.shopping_basket),
         backgroundColor: Color(0xff7d9b09),
+        onPressed: () => Navigator.pushReplacementNamed(context, '/checkout'),
       ),
       body: Column( 
         children: <Widget>[
@@ -22,9 +23,21 @@ class DishState extends State<Dish> {
           child: Container(
             child: ListView(
               children: <Widget>[
-                ListTile(
-                  title: Text('Lasagna', style: TextStyle(fontSize: 40.0))
+                Row(
+                  children: <Widget>[
+                    Container(
+                      child: Text('Lasagna', style: TextStyle(fontSize: 40.0))
+                    ),
+                  ],
                 ),
+                 Row(
+                   mainAxisAlignment: MainAxisAlignment.end,
+                   children: <Widget>[
+                     FlatButton(
+                          child: Text('ADD',style: TextStyle(fontSize: 20), ),
+                          onPressed:() {},),
+                   ],
+                 ),
                 ListTile(
                   title: Text('This is homemade lasagna')
                 )
