@@ -33,10 +33,32 @@ class CustomerState extends State<Customer> with TickerProviderStateMixin {
   // bool get wantKeepAlive => true;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
 
     controller = TabController(length: 1, vsync: this);
+    String listRequestJson = jsonEncode({
+      'city': 'Manchester',
+      'limit': 5
+    });
+    http.post(
+      "https://digin-backend.appspot.com/api/list",
+      headers: {'Content-Type': 'application/json'},
+      body: listRequestJson
+    ).then((response) {
+      print(response.body);
+      var responseJson = jsonDecode(response.body);
+      
+      setState(() {
+        responseJson['dishes'].forEach((dish) {
+          tileNames.add(dish['name']);
+          tileCooks.add(dish['cookemail']);
+          tileLocations.add(dish['city']);
+          listLength += 1;
+        });
+      });
+    });
+
   }
 
   @override
@@ -263,9 +285,8 @@ class _Tile extends StatefulWidget{
   String name;
   String cook;
   String location;
-  int rating;
 
-  _Tile({Key key, this.name, this.cook, this.location, this.rating}) : super(key: key);
+  _Tile({Key key, this.name, this.cook, this.location}) : super(key: key);
 
   @override
   _TileState createState() => _TileState();
@@ -290,12 +311,6 @@ class _TileState extends State<_Tile> {
                 Text('${widget.location}', textAlign: TextAlign.right)
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Text('${widget.rating.toString()}', textAlign: TextAlign.left),
-              ],
-            )
           ],
         ),
         isThreeLine: true,
