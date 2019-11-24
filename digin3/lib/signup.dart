@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-class Login extends StatefulWidget{
-  LoginState createState() => LoginState();
+class SignUp extends StatefulWidget {
+  SignUpState createState() => SignUpState();
 }
 
-class LoginState extends State<Login> {
+class SignUpState extends State<SignUp> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String _email, _password;
-  
-  @override
+
+    @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xff7d9b09),
@@ -56,31 +56,17 @@ class LoginState extends State<Login> {
                 SizedBox(
                   width: 350,
                       child: RaisedButton(
-                      onPressed: _login,
+                      onPressed: () {},
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18.0)
                       ),
-                      child: Text('Log In'),
+                      child: Text('Sign Up'),
                     ),
                 ),
-                FlatButton(
-                  child: Text('Sign Up?', style: TextStyle(fontSize: 12),),
-                  onPressed: () => Navigator.pushNamed(context, '/signup')
-                )
               ],
             )
           )
         ],)
     );
-  }
-
-  void _login() {
-    if(_email == 'homecook'){
-      Navigator.pushNamed(context, '/homecook');
-    } else if (_email == 'test') {
-      Navigator.pushNamed(context, '/test');
-    } else {
-      Navigator.pushNamed(context, '/home');
-    }
   }
 }

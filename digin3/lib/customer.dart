@@ -145,6 +145,32 @@ class CustomerState extends State<Customer> with TickerProviderStateMixin {
                       Padding(
                         padding: EdgeInsets.all(8.0),
                         child: TextFormField(
+                          controller: cookController,
+                          decoration: InputDecoration(labelText: 'Quanity'),
+                          validator: (input) {
+                            if (input.isEmpty) {
+                              return 'Enter a value';
+                            }
+                          },
+                          onSaved: (input) => cookname = input,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          controller: cookController,
+                          decoration: InputDecoration(labelText: 'Description'),
+                          validator: (input) {
+                            if (input.isEmpty) {
+                              return 'Enter a value';
+                            }
+                          },
+                          onSaved: (input) => cookname = input,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: TextFormField(
                           decoration: InputDecoration(labelText: 'Time'),
                           // onSaved: (input) => time = input,
                         ),
